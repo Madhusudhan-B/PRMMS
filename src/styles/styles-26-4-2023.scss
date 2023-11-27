@@ -1,0 +1,32 @@
+// Write your overrides
+.layout-nav-type-vertical .layout-vertical-nav .nav-group .nav-group .nav-item-icon, .layout-nav-type-vertical .layout-vertical-nav .nav-group .nav-link .nav-item-icon {
+    font-size: 1.425rem !important;
+}
+
+.layout-horizontal-nav .nav-link:not(.sub-item) a.router-link-active, .layout-horizontal-nav .nav-group:not(.sub-item).active>.popper-triggerer>.nav-group-label, .layout-nav-type-vertical .layout-vertical-nav .nav-link>.router-link-exact-active {
+    background-color: rgb(47 39 116)!important;
+    box-shadow: 0 3px 3px -2px var(--v-shadow-key-umbra-opacity, rgba(0, 0, 0, .2)),0 3px 4px 0 var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, .14)),0 1px 8px 0 var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, .12));
+}
+
+.layout-horizontal-nav .nav-link:not(.sub-item) a.router-link-active, .layout-horizontal-nav .nav-group:not(.sub-item).active>.popper-triggerer>.nav-group-label, .layout-nav-type-vertical .layout-vertical-nav .nav-link>.router-link-exact-active {
+    background: rgb(47 39 116)!important;
+    box-shadow: 0 3px 1px -2px var(--v-shadow-key-umbra-opacity, rgba(0, 0, 0, .2)),0 2px 2px 0 var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, .14)),0 1px 5px 0 var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, .12));
+}
+.v-card-text {
+    flex: 1 1 auto;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: .0178571429em;
+    padding: 5px !important;
+    text-transform: none;
+}
+.text-h5 {
+    font-size: 1.3rem!important;
+    font-weight: 500;
+    line-height: 2rem;
+    letter-spacing: normal!important;
+    font-family: Public Sans,sans-serif,-apple-system,blinkmacsystemfont,Segoe UI,roboto,Helvetica Neue,arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol!important;
+    text-transform: none!important;
+    text-align: center !important;
+    color: #fff !important;
+}

@@ -1,0 +1,100 @@
+
+import { setupLayouts } from 'virtual:generated-layouts'
+import { createRouter, createWebHistory } from 'vue-router'
+import { isUserLoggedIn } from './utils'
+import routes from '~pages'
+//import pages from './routes/pages'
+import { canNavigate } from '@layouts/plugins/casl'
+import * as msal from 'msal';
+import msalConfig from '@/config'
+
+
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+ 
+  routes: [
+    // ℹ️ We are redirecting to different pages based on role.
+    // NOTE: Role is just for UI purposes. ACL is based on abilities.
+    {
+      path: '/',
+      redirect: to => {
+        const userData = JSON.parse(localStorage.getItem('userData') || '{}')
+        const userRole = userData && userData.role ? userData.role : null
+        if (userRole === 'admin')
+          return { name: 'dashboards-rfid-for-people' }
+        if (userRole === 'client')
+          return { name: 'access-control' }
+        
+        return { name: 'login', query: to.query }
+      },
+    },
+ /*   {
+      path: '/',
+      name: 'rfid-for-people',
+     // component: () => import('/dashboards/rfid-for-people/rfid-for-people.vue'),
+    }, */
+    {		
+		path: '/login',
+		name: 'login',
+		component: () => import('@/pages/login.vue')
+    },
+   
+   
+    ...setupLayouts(routes),
+   
+     
+  ],
+  
+})
+
+
+// Docs: https://router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards
+router.beforeEach(to => {
+  const isLoggedIn = isUserLoggedIn()
+
+
+  
+   // ℹ️ Commented code is legacy code
+  
+    if (!canNavigate(to)) {
+      
+      // Redirect to login if not logged in
+      // ℹ️ Only add `to` query param if `to` route is not index route
+      if (!isLoggedIn)
+        return { name: 'login', query: { to: to.name !== 'index' ? to.fullPath : undefined } }
+
+
+        
+  
+      // If logged in => not authorized
+      return { name: 'not-authorized' }
+    }else{
+      // const msalInstance = new msal.UserAgentApplication(msalConfig)
+      // const account = msalInstance.getAccount();
+      // console.log(account)
+      // if (!account) {
+      //   // If the user is not authenticated and the page requires authentication, redirect to the login page
+      //   return { name: '/' };
+      // } 
+    }
+  
+    // Redirect if logged in
+    if (to.meta.redirectIfLoggedIn && isLoggedIn)
+    return { name: '/' } 
+  
+    
+  // if (canNavigate(to)) {
+
+  //   if (to.meta.redirectIfLoggedIn && isLoggedIn)
+  //     return '/'
+  // }
+  // else {
+  //   if (isLoggedIn)
+  //     return { name: 'not-authorized' }
+  //   else
+  //     return { name: 'login', query: { to: to.name !== 'index' ? to.fullPath : undefined } }
+  // }
+})
+
+
+export default router
